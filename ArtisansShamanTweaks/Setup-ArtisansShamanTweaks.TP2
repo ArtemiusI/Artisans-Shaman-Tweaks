@@ -1,0 +1,23 @@
+BACKUP ~weidu_external/backup/ArtisansShamanTweaks~
+AUTHOR ~The Artisan~
+
+BEGIN ~The Artisan's Corner: Shaman Tweaks~ DESIGNATED 0
+
+COPY ~%MOD_FOLDER%/2da~ ~override~
+
+COPY_EXISTING ~xplevel.2da~ ~override~
+REPLACE_TEXTUALLY
+~MONK \(.*\)
+SHAMAN \(.*\)~
+~MONK \1
+SHAMAN  \1~
+  BUT_ONLY
+
+ACTION_IF FILE_EXISTS_IN_GAME ~lunumab.2da~ THEN BEGIN
+
+  COPY_EXISTING ~lunumab.2da~ ~override~
+    READ_2DA_ENTRY  2 1 5 "cleric"   // read trueclass cleric value for initial HLA level
+    SET_2DA_ENTRY   30 1 5 "%cleric%" // write trueclass cleric value for initial HLA level into druid slot
+    BUT_ONLY
+
+END
